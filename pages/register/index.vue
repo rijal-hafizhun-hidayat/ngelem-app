@@ -2,11 +2,14 @@
 definePageMeta({
   layout: false,
 });
-const form = reactive({
-  email: null,
-  password: null,
-});
+
 const validation = ref([]);
+const form = reactive({
+  name: null,
+  email: null,
+  username: null,
+  password: null
+});
 
 const send = () => {
   console.log(form);
@@ -17,6 +20,19 @@ const send = () => {
     <form @submit.prevent="send()">
       <div class="space-y-4">
         <div>
+          <InputLabel>Nama lengkap</InputLabel>
+          <TextInput
+            class="mt-1 block w-full"
+            type="text"
+            v-model="form.name"
+            autofocus
+          />
+          <InputError
+            v-if="validation.name"
+            :message="validation.name._errors[0]"
+          />
+        </div>
+        <div>
           <InputLabel>Email</InputLabel>
           <TextInput
             class="mt-1 block w-full"
@@ -25,11 +41,23 @@ const send = () => {
             autofocus
           />
           <InputError
-            v-if="validation.username"
+            v-if="validation.email"
             :message="validation.email._errors[0]"
           />
         </div>
-
+        <div>
+          <InputLabel>Username</InputLabel>
+          <TextInput
+            class="mt-1 block w-full"
+            type="text"
+            v-model="form.username"
+            autofocus
+          />
+          <InputError
+            v-if="validation.username"
+            :message="validation.username._errors[0]"
+          />
+        </div>
         <div>
           <InputLabel>Password</InputLabel>
           <TextInput
@@ -45,12 +73,8 @@ const send = () => {
         </div>
       </div>
 
-      <div class="flex items-center justify-between mt-4">
-        <p class="text-sm">
-          Belum memiliki akun? klik
-          <NuxtLink class="text-blue-500 underline cursor-pointer" to="/register">register</NuxtLink>
-        </p>
-        <PrimaryButton type="submit">Masuk</PrimaryButton>
+      <div class="flex justify-end mt-4">
+        <PrimaryButton type="submit">Simpan</PrimaryButton>
       </div>
     </form>
   </NuxtLayout>
