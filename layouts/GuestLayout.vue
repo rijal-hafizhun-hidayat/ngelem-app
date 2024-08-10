@@ -2,11 +2,17 @@
 const router = useRouter();
 const showingNavigationDropdown = ref(false);
 
-const showLogin = () => {
+const login = () => {
   return router.push({
     name: "login",
   });
 };
+
+const signup = () => {
+  return router.push({
+    name: 'register'
+  })
+}
 </script>
 <template>
   <div class="h-screen">
@@ -19,25 +25,14 @@ const showLogin = () => {
             </div>
           </div>
 
-          <div class="hidden space-x-8 sm:-my-px sm:flex">
-            <NuxtLink
-              active-class="border-indigo-700"
-              inactive-class="border-indigo-500"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
-              to="/"
-            >
-              Home
-            </NuxtLink>
-          </div>
-
           <div class="hidden sm:flex space-x-4">
             <div class="my-4">
-              <PrimaryButtonOutline @click="showLogin()"
+              <PrimaryButtonOutline @click="login()"
                 >Login</PrimaryButtonOutline
               >
             </div>
             <div class="my-4">
-              <PrimaryButton>Sign Up</PrimaryButton>
+              <PrimaryButton @click="signup()">Sign Up</PrimaryButton>
             </div>
           </div>
 
@@ -99,10 +94,10 @@ const showLogin = () => {
         <div class="pt-4 pb-1 border-t border-gray-200">
           <div class="mt-3 space-y-1">
             <div class="pl-3 pr-4 py-2">
-              <PrimaryButtonOutline>Login</PrimaryButtonOutline>
+              <PrimaryButtonOutline @click="login()">Login</PrimaryButtonOutline>
             </div>
             <div class="pl-3 pr-4 py-4">
-              <PrimaryButton>Sign Up</PrimaryButton>
+              <PrimaryButton @click="signup()">Sign Up</PrimaryButton>
             </div>
           </div>
         </div>
