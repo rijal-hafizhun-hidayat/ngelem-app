@@ -1,5 +1,12 @@
 <script setup>
 const showingNavigationDropdown = ref(false);
+const router = useRouter();
+
+const logout = () => {
+  return router.push({
+    name: "login",
+  });
+};
 </script>
 <template>
   <div>
@@ -32,7 +39,7 @@ const showingNavigationDropdown = ref(false);
                         type="button"
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                       >
-                        {{ 'rijal hafizhun hidayat' }}
+                        {{ "rijal hafizhun hidayat" }}
 
                         <svg
                           class="ml-2 -mr-0.5 h-4 w-4"
@@ -56,6 +63,7 @@ const showingNavigationDropdown = ref(false);
                       Profile
                     </a>
                     <a
+                      @click="logout()"
                       class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     >
                       Logout
@@ -132,6 +140,7 @@ const showingNavigationDropdown = ref(false);
 
             <div class="mt-3 space-y-1">
               <a
+                @click="logout()"
                 class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                 >Logout</a
               >

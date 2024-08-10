@@ -2,6 +2,8 @@
 definePageMeta({
   layout: false,
 });
+
+const router = useRouter();
 const form = reactive({
   email: null,
   password: null,
@@ -10,6 +12,9 @@ const validation = ref([]);
 
 const send = () => {
   console.log(form);
+  return router.push({
+    name: "dashboard",
+  });
 };
 </script>
 <template>
@@ -48,7 +53,11 @@ const send = () => {
       <div class="flex items-center justify-between mt-4">
         <p class="text-sm">
           Belum memiliki akun? klik
-          <NuxtLink class="text-blue-500 underline cursor-pointer" to="/register">register</NuxtLink>
+          <NuxtLink
+            class="text-blue-500 underline cursor-pointer"
+            to="/register"
+            >register</NuxtLink
+          >
         </p>
         <PrimaryButton type="submit">Masuk</PrimaryButton>
       </div>

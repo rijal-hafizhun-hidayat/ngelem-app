@@ -1,3 +1,12 @@
+<script setup>
+const router = useRouter()
+
+const login = () => {
+  return router.push({
+    name: 'login'
+  })
+}
+</script>
 <template>
   <div class="bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,7 +21,7 @@
             </div>
 
             <div>
-              <PrimaryButton>Get Started</PrimaryButton>
+              <PrimaryButton @click="login()">Get Started</PrimaryButton>
             </div>
           </div>
           <div class="order-first mb-2 sm:mb-0 sm:order-last">
