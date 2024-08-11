@@ -10,9 +10,9 @@ const login = () => {
 
 const signup = () => {
   return router.push({
-    name: 'register'
-  })
-}
+    name: "register",
+  });
+};
 </script>
 <template>
   <div class="h-screen">
@@ -27,9 +27,7 @@ const signup = () => {
 
           <div class="hidden sm:flex space-x-4">
             <div class="my-4">
-              <PrimaryButtonOutline @click="login()"
-                >Login</PrimaryButtonOutline
-              >
+              <SecondaryButton @click="login()">Login</SecondaryButton>
             </div>
             <div class="my-4">
               <PrimaryButton @click="signup()">Sign Up</PrimaryButton>
@@ -94,7 +92,9 @@ const signup = () => {
         <div class="pt-4 pb-1 border-t border-gray-200">
           <div class="mt-3 space-y-1">
             <div class="pl-3 pr-4 py-2">
-              <PrimaryButtonOutline @click="login()">Login</PrimaryButtonOutline>
+              <PrimaryButtonOutline @click="login()"
+                >Login</PrimaryButtonOutline
+              >
             </div>
             <div class="pl-3 pr-4 py-4">
               <PrimaryButton @click="signup()">Sign Up</PrimaryButton>
