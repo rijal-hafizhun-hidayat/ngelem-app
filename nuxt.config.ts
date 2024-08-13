@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   modules: ["@vesp/nuxt-fontawesome"],
   fontawesome: {
     icons: {
-      solid: ["cog", "fa-xmark", "fa-image"],
+      solid: ["cog", "fa-xmark", "fa-image", "fa-plus"],
     },
   },
 });

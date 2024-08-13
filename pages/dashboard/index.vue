@@ -5,6 +5,9 @@ definePageMeta({
 
 const file = ref(null);
 const showModalCreatePost = ref(false);
+const selectedFile = ref([]);
+const selectedFileName = ref([]);
+const imageSrc = ref([]);
 const form = reactive({
   content: "",
   filename: "",
@@ -26,10 +29,25 @@ const isClickUploadFile = () => {
 const appendFile = (name, files) => {
   form.filename = name;
   form.file = files[0];
+
+  for (let index = 0; index < files.length; index++) {
+    selectedFile.value.push(files[index]);
+    selectedFileName.value.push(files[index].name);
+    const src = URL.createObjectURL(files[index]);
+    imageSrc.value.push(src);
+  }
+};
+
+const removeImage = (index) => {
+  selectedFile.value.splice(index, 1);
+  imageSrc.value.splice(index, 1);
+  selectedFileName.value.splice(index, 1);
 };
 
 const send = () => {
   console.log(form);
+  console.log(selectedFile);
+  console.log(selectedFileName);
 };
 </script>
 <template>
@@ -65,13 +83,39 @@ const send = () => {
 
           <div class="mt-6">
             <AreaText class="block w-full" v-model="form.content" />
+
+            <div class="mt-3 flex flex-row space-x-3">
+              <div
+                v-for="(src, index) in imageSrc"
+                :key="index"
+                class="relative"
+              >
+                <div>
+                  <img
+                    :src="src"
+                    class="w-24 h-24 object-cover rounded sm:w-32 sm:h-32"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <font-awesome
+                    @click="removeImage(index)"
+                    class="absolute top-0 right-0 transition cursor-pointer ease-in-out bg-gray-400 active:bg-gray-600 p-1 rounded-full text-white"
+                    icon="fa-xmark"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="mt-6 flex justify-between">
             <div>
-              <PrimaryButton @click="isClickUploadFile()"
-                ><font-awesome icon="fa-image"
-              /></PrimaryButton>
+              <PrimaryButton type="button" @click="isClickUploadFile()">
+                <div class="space-x-1">
+                  <font-awesome icon="fa-plus" />
+                  <font-awesome icon="fa-image" />
+                </div>
+              </PrimaryButton>
             </div>
             <div>
               <SecondaryButton @click="closeModal()"> Cancel </SecondaryButton>
