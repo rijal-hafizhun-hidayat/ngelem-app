@@ -2,13 +2,34 @@
 definePageMeta({
   layout: false,
 });
+
+const file = ref(null);
 const showModalCreatePost = ref(false);
+const form = reactive({
+  content: "",
+  filename: "",
+  file: "",
+});
+
 const isShowModalCreatePost = () => {
   showModalCreatePost.value = true;
 };
 
 const closeModal = () => {
   showModalCreatePost.value = false;
+};
+
+const isClickUploadFile = () => {
+  return file.value.click();
+};
+
+const appendFile = (name, files) => {
+  form.filename = name;
+  form.file = files[0];
+};
+
+const send = () => {
+  console.log(form);
 };
 </script>
 <template>
@@ -29,39 +50,51 @@ const closeModal = () => {
     </template>
 
     <Modal :show="showModalCreatePost" @close="closeModal()">
-      <div class="p-6">
-        <h2 class="text-lg font-medium text-gray-900">
-          Are you sure you want to delete your account?
-        </h2>
+      <form @submit.prevent="send()">
+        <input
+          type="file"
+          @change="appendFile($event.target.files[0].name, $event.target.files)"
+          class="hidden"
+          ref="file"
+          accept="image/*"
+        />
+        <div class="p-6">
+          <h2 class="text-lg font-medium text-gray-900">
+            Mau ngeluh apa hari ini rijal ?
+          </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
-          Once your account is deleted, all of its resources and data will be
-          permanently deleted. Please enter your password to confirm you would
-          like to permanently delete your account.
-        </p>
+          <div class="mt-6">
+            <AreaText class="block w-full" v-model="form.content" />
+          </div>
 
-        <div class="mt-6">
-          <InputLabel for="password" value="Password" class="sr-only" />
+          <div class="mt-6 flex justify-between">
+            <div>
+              <PrimaryButton @click="isClickUploadFile()"
+                ><font-awesome icon="fa-image"
+              /></PrimaryButton>
+            </div>
+            <div>
+              <SecondaryButton @click="closeModal()"> Cancel </SecondaryButton>
 
-          <TextInput
-            id="password"
-            ref="passwordInput"
-            type="password"
-            class="mt-1 block w-3/4"
-            placeholder="Password"
-          />
+              <PrimaryButton type="submit" class="ms-3"> Kirim </PrimaryButton>
+            </div>
+          </div>
         </div>
-
-        <div class="mt-6 flex justify-end">
-          <SecondaryButton @click="closeModal()"> Cancel </SecondaryButton>
-
-          <DangerButton class="ms-3"> Delete Account </DangerButton>
-        </div>
-      </div>
+      </form>
     </Modal>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white mt-10 px-4 py-6 rounded shadow-md overflow-x-auto">
+        <div class="flex justify-between mb-2">
+          <div><p class="font-bold">rijal hafizhun hidayat</p></div>
+          <div>
+            <font-awesome-layers
+              class="cursor-pointer rounded p-3 transition ease-in-out duration-150 hover:bg-gray-200 active:bg-gray-400"
+            >
+              <font-awesome icon="fa-xmark" />
+            </font-awesome-layers>
+          </div>
+        </div>
         <p>hello world</p>
       </div>
     </div>
