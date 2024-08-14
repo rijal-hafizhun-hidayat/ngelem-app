@@ -7,6 +7,12 @@ const logout = () => {
     name: "login",
   });
 };
+
+const myProfile = () => {
+  return router.push({
+    name: "profile",
+  });
+};
 </script>
 <template>
   <div>
@@ -58,6 +64,7 @@ const logout = () => {
                   </template>
                   <template #content>
                     <a
+                      @click="myProfile()"
                       class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     >
                       Profile
@@ -139,6 +146,11 @@ const logout = () => {
             </div>
 
             <div class="mt-3 space-y-1">
+              <a
+                @click="myProfile()"
+                class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+                >Profile</a
+              >
               <a
                 @click="logout()"
                 class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
