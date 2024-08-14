@@ -7,7 +7,7 @@ const file = ref(null);
 const showModalCreatePost = ref(false);
 const selectedFile = ref([]);
 const selectedFileName = ref([]);
-const imageSrc = ref([]);
+const fileSrc = ref([]);
 const form = reactive({
   content: "",
   filename: "",
@@ -27,6 +27,8 @@ const isClickUploadFile = () => {
 };
 
 const appendFile = (name, files) => {
+  console.log(files);
+
   form.filename = name;
   form.file = files[0];
 
@@ -34,13 +36,15 @@ const appendFile = (name, files) => {
     selectedFile.value.push(files[index]);
     selectedFileName.value.push(files[index].name);
     const src = URL.createObjectURL(files[index]);
-    imageSrc.value.push(src);
+    fileSrc.value.push(src);
   }
+
+  file.value.value = ''
 };
 
 const removeImage = (index) => {
   selectedFile.value.splice(index, 1);
-  imageSrc.value.splice(index, 1);
+  fileSrc.value.splice(index, 1);
   selectedFileName.value.splice(index, 1);
 };
 
@@ -71,10 +75,12 @@ const send = () => {
       <form @submit.prevent="send()">
         <input
           type="file"
+          id="file"
           @change="appendFile($event.target.files[0].name, $event.target.files)"
           class="hidden"
           ref="file"
-          accept="image/*"
+          accept="image/*, video/*"
+          multiple
         />
         <div class="p-6">
           <h2 class="text-lg font-medium text-gray-900">
@@ -86,12 +92,20 @@ const send = () => {
 
             <div class="mt-3 flex flex-row space-x-3">
               <div
-                v-for="(src, index) in imageSrc"
+                v-for="(src, index) in fileSrc"
                 :key="index"
                 class="relative"
               >
                 <div>
+                  <video
+                  class="w-36 h-36 sm:w-32 sm:h-32"
+                    controls
+                    v-if="selectedFile[index].type === 'video/mp4'"
+                  >
+                    <source :src="src" type="video/mp4" />
+                  </video>
                   <img
+                    v-else
                     :src="src"
                     class="w-24 h-24 object-cover rounded sm:w-32 sm:h-32"
                     alt=""
