@@ -25,7 +25,7 @@ const login = () => {
             </div>
           </div>
           <div class="order-first mb-2 sm:mb-0 sm:order-last">
-            <img
+            <NuxtImg
               class="h-auto w-9/12 mx-auto sm:max-w-full"
               src="/images/falling-into-darkness.png"
               alt=""
