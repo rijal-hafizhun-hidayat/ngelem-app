@@ -39,7 +39,7 @@ const appendFile = (name, files) => {
     fileSrc.value.push(src);
   }
 
-  file.value.value = ''
+  file.value.value = "";
 };
 
 const removeImage = (index) => {
@@ -98,13 +98,14 @@ const send = () => {
               >
                 <div>
                   <video
-                  class="w-36 h-36 sm:w-32 sm:h-32"
+                    class="w-36 h-36 sm:w-32 sm:h-32"
                     controls
                     v-if="selectedFile[index].type === 'video/mp4'"
                   >
                     <source :src="src" type="video/mp4" />
                   </video>
-                  <img
+                  <NuxtImg
+                    loading="lazy"
                     v-else
                     :src="src"
                     class="w-24 h-24 object-cover rounded sm:w-32 sm:h-32"

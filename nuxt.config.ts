@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@vesp/nuxt-fontawesome"],
+  modules: ["@vesp/nuxt-fontawesome", "@nuxt/image"],
   fontawesome: {
     icons: {
       solid: ["cog", "fa-xmark", "fa-image", "fa-plus"],
