@@ -1,7 +1,8 @@
 <script setup>
 const validation = ref([]);
 const user = reactive({
-  email: "",
+  oldEmail: "",
+  newEmail: "",
 });
 
 const send = () => {
@@ -12,19 +13,38 @@ const send = () => {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-white mt-10 px-4 py-6 rounded shadow-md overflow-x-auto">
       <h1 class="font-bold py-2 text-xl">Ubah email</h1>
+      <p>warning</p>
       <div class="whitespace-nowrap">
         <form @submit.prevent="send()" class="space-y-4">
           <div>
-            <InputLabel>Email baru</InputLabel>
+            <InputLabel>Email lama</InputLabel>
             <TextInput
               class="mt-1 block w-full"
-              v-model="user.email"
+              v-model="user.oldEmail"
               type="email"
+              disabled
             />
             <InputError
-              v-if="validation.email"
-              :message="validation.email._errors[0]"
+              v-if="validation.oldEmail"
+              :message="validation.oldEmail._errors[0]"
             />
+          </div>
+          <div class="flex justify-start space-x-4">
+            <div class="grow">
+              <InputLabel>Email baru</InputLabel>
+              <TextInput
+                class="mt-1 block w-full"
+                v-model="user.newEmail"
+                type="email"
+              />
+              <InputError
+                v-if="validation.newEmail"
+                :message="validation.newEmail._errors[0]"
+              />
+            </div>
+            <div>
+              <PrimaryButton type="button" class="mt-7">Kirim OTP</PrimaryButton>
+            </div>
           </div>
           <div>
             <PrimaryButton type="submit">Simpan</PrimaryButton>
