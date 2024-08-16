@@ -1,13 +1,34 @@
 <template>
   <div class="flex justify-around">
-    <div class="bg-gray-500 w-full cursor-pointer">
-      <p class="text-center py-2 text-white font-medium">Suka</p>
+    <div
+      class="w-full py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
+    >
+      <div class="text-center space-x-2">
+        <span>
+          <font-awesome icon="fa-thumbs-up" />
+        </span>
+        <span class="font-medium">Suka</span>
+      </div>
     </div>
-    <div class="bg-yellow-500 w-full cursor-pointer">
-      <p class="text-center py-2 text-white font-medium">Komentar</p>
+    <div
+      class="w-full py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
+    >
+      <div class="text-center space-x-2">
+        <span>
+          <font-awesome icon="fa-comment" />
+        </span>
+        <span class="font-medium">Komentar</span>
+      </div>
     </div>
-    <div class="bg-green-500 w-full cursor-pointer">
-      <p class="text-center py-2 text-white font-medium">Share</p>
+    <div
+      class="w-full py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
+    >
+      <div class="text-center space-x-2">
+        <span>
+          <font-awesome icon="fa-share" />
+        </span>
+        <span class="font-medium">Share</span>
+      </div>
     </div>
   </div>
 </template>

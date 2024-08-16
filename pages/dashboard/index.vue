@@ -142,7 +142,7 @@ const send = () => {
       </form>
     </Modal>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div v-for="index in 10" :key="index" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white mt-10 px-4 py-6 rounded shadow-md overflow-x-auto">
         <div class="space-y-4">
           <div class="flex justify-between">
