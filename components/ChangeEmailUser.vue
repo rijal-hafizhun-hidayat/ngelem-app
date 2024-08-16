@@ -3,6 +3,7 @@ const validation = ref([]);
 const user = reactive({
   oldEmail: "",
   newEmail: "",
+  codeOtp: "",
 });
 
 const send = () => {
@@ -13,7 +14,12 @@ const send = () => {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-white mt-10 px-4 py-6 rounded shadow-md overflow-x-auto">
       <h1 class="font-bold py-2 text-xl">Ubah email</h1>
-      <p>warning</p>
+      <div class="bg-yellow-300 rounded p-2 mb-2">
+        <h1 class="text-yellow-700 font-bold">warning</h1>
+        <p class="text-yellow-700">
+          email yang lama akan digunakan untuk mengirim kode otp
+        </p>
+      </div>
       <div class="whitespace-nowrap">
         <form @submit.prevent="send()" class="space-y-4">
           <div>
@@ -43,8 +49,18 @@ const send = () => {
               />
             </div>
             <div>
-              <PrimaryButton type="button" class="mt-7">Kirim OTP</PrimaryButton>
+              <PrimaryButton type="button" class="mt-7"
+                >Kirim OTP</PrimaryButton
+              >
             </div>
+          </div>
+          <div>
+            <InputLabel>Kode OTP</InputLabel>
+            <TextInput
+              class="mt-1 block w-full"
+              v-model="user.codeOtp"
+              type="number"
+            />
           </div>
           <div>
             <PrimaryButton type="submit">Simpan</PrimaryButton>

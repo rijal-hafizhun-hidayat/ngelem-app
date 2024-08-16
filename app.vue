@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: 'ngeluh-app'
+  title: 'ngeluh'
 })
 </script>
 <template>
