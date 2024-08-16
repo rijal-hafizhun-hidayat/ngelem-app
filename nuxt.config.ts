@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   modules: ["@vesp/nuxt-fontawesome", "@nuxt/image", "nuxt-swiper"],
   fontawesome: {
     icons: {
-      solid: ["cog", "fa-xmark", "fa-image", "fa-plus"],
+      solid: ["cog", "fa-xmark", "fa-image", "fa-plus", "fa-chevron-right", "fa-chevron-left", "fa-thumbs-up", "fa-comment", "fa-share"],
     },
   },
 });
