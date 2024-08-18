@@ -2,8 +2,6 @@
 const props = defineProps({
   isUserPost: Boolean,
 });
-
-console.log(props);
 </script>
 <template>
   <div
@@ -36,10 +34,6 @@ console.log(props);
             :slides-per-view="1"
             :loop="true"
             :effect="'creative'"
-            :autoplay="{
-              delay: 8000,
-              disableOnInteraction: true,
-            }"
             :creative-effect="{
               prev: {
                 shadow: false,
@@ -50,7 +44,7 @@ console.log(props);
               },
             }"
           >
-            <SwiperSlide v-for="slide in 10" :key="slide">
+            <SwiperSlide v-for="slide in 5" :key="slide">
               <strong>{{ slide }}</strong>
             </SwiperSlide>
             <SwiperControls />
@@ -64,9 +58,10 @@ console.log(props);
             fugiat assumenda? Odit, tempora nulla.
           </p>
         </div>
-        <div class="border-t">
-          <FooterPost class="mt-5" />
+        <div class="flex justify-end space-x-3">
+          <LikeShareCount />
         </div>
+        <FooterPost v-model="isShowComment" class="mt-5" />
       </div>
     </div>
   </div>

@@ -1,7 +1,20 @@
+<script setup>
+const showComment = ref(false);
+
+const isShowComment = () => {
+  if(showComment.value === false){
+    showComment.value = true
+  }
+  else{
+    showComment.value = false
+  }
+  console.log(showComment.value)
+};
+</script>
 <template>
-  <div class="flex justify-around">
+  <div class="flex justify-around border-t">
     <div
-      class="w-full py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
+      class="w-full mt-2 py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
     >
       <div class="text-center space-x-2">
         <span>
@@ -11,7 +24,8 @@
       </div>
     </div>
     <div
-      class="w-full py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
+      @click="isShowComment()"
+      class="w-full mt-2 py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
     >
       <div class="text-center space-x-2">
         <span>
@@ -21,7 +35,7 @@
       </div>
     </div>
     <div
-      class="w-full py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
+      class="w-full mt-2 py-2 cursor-pointer transition ease-in-out duration-150 hover:bg-gray-300 hover:rounded"
     >
       <div class="text-center space-x-2">
         <span>
@@ -30,5 +44,8 @@
         <span class="font-medium">Share</span>
       </div>
     </div>
+  </div>
+  <div class="border-t" v-if="showComment === true">
+    <Comments />
   </div>
 </template>
