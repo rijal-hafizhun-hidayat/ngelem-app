@@ -2,13 +2,12 @@
 const showComment = ref(false);
 
 const isShowComment = () => {
-  if(showComment.value === false){
-    showComment.value = true
+  if (showComment.value === false) {
+    showComment.value = true;
+  } else {
+    showComment.value = false;
   }
-  else{
-    showComment.value = false
-  }
-  console.log(showComment.value)
+  console.log(showComment.value);
 };
 </script>
 <template>
