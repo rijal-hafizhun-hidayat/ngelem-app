@@ -13,7 +13,7 @@ const showProfile = () => {
       <div class="grid grid-rows-1 sm:grid-cols-2 gap-4">
         <div>
           <NuxtImg
-            class="w-7/12 sm:w-6/12 mx-auto rounded"
+            class="w-7/12 sm:w-6/12 mx-auto rounded-full"
             src="/images/falling-into-darkness.png"
             alt=""
             srcset=""

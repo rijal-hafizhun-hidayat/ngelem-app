@@ -14,7 +14,7 @@ const props = defineProps({
         <div class="flex justify-between">
           <div class="flex space-x-4">
             <div>
-              <p class="font-bold">rijal hafizhun hidayat</p>
+              <p class="font-bold capitalize">rijal hafizhun hidayat</p>
             </div>
             <div>
               <p class="text-green-500 font-bold">online</p>
