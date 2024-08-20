@@ -26,6 +26,9 @@ const showNotification = () => {
             depresi
           </p>
         </div>
+        <div>
+          <div class="bg-green-500 my-0 sm:my-5">p</div>
+        </div>
       </div>
     </div>
   </div>
