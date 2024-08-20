@@ -1,8 +1,14 @@
 <script setup>
-const model = defineModel();
+const form = reactive({
+  comment: "",
+});
+
+const send = () => {
+  console.log(form.comment);
+};
 </script>
 <template>
-  <div class="overflow-y-auto max-h-60">
+  <div class="overflow-y-auto max-h-60 sm:max-h-96">
     <div
       v-for="index in 5"
       :key="index"
@@ -37,5 +43,23 @@ const model = defineModel();
         </div>
       </div>
     </div>
+  </div>
+  <div class="py-4">
+    <form @submit.prevent="send()">
+      <div class="flex flex-row my-auto space-x-5">
+        <div class="w-full">
+          <TextInput
+            class="mt-1 block w-full"
+            type="text"
+            v-model="form.comment"
+            placeholder="write comment here"
+            autofocus
+          />
+        </div>
+        <div class="my-auto">
+          <PrimaryButton type="submit">Kirim</PrimaryButton>
+        </div>
+      </div>
+    </form>
   </div>
 </template>
