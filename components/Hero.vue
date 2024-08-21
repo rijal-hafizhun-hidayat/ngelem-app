@@ -15,7 +15,7 @@ const login = () => {
           <div class="text-center my-auto sm:text-left">
             <div class="mb-8">
               <h1 class="roboto-bold text-4xl">
-                A Space where <br />your ngeluh story <br />
+                A Space where <br />your 'ngeluh and ngememe' story <br />
                 is connect with others
               </h1>
             </div>
