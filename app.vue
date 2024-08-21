@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: 'ngeluh'
+  title: 'ngelem'
 })
 </script>
 <template>
