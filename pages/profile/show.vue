@@ -18,5 +18,6 @@ definePageMeta({
     <ChangeProfileUser />
     <ChangePasswordUser />
     <ChangeEmailUser />
+    <ChangePhotoProfile />
   </NuxtLayout>
 </template>
