@@ -53,7 +53,6 @@ const send = () => {
             type="text"
             v-model="form.comment"
             placeholder="write comment here"
-            autofocus
           />
         </div>
         <div class="my-auto">
