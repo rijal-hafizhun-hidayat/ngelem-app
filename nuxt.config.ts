@@ -9,10 +9,29 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@vesp/nuxt-fontawesome", "@nuxt/image", "nuxt-swiper"],
+  modules: [
+    "@vesp/nuxt-fontawesome",
+    "@nuxt/image",
+    "nuxt-swiper",
+    "@pinia/nuxt",
+    // "nuxt-security",
+  ],
+  alias: {
+    pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs",
+  },
   fontawesome: {
     icons: {
-      solid: ["cog", "fa-xmark", "fa-image", "fa-plus", "fa-chevron-right", "fa-chevron-left", "fa-thumbs-up", "fa-comment", "fa-share"],
+      solid: [
+        "cog",
+        "fa-xmark",
+        "fa-image",
+        "fa-plus",
+        "fa-chevron-right",
+        "fa-chevron-left",
+        "fa-thumbs-up",
+        "fa-comment",
+        "fa-share",
+      ],
     },
   },
 });
