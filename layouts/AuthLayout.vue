@@ -1,8 +1,14 @@
-<script setup>
+<script setup lang="ts">
 const showingNavigationDropdown = ref(false);
 const router = useRouter();
+const auth = authStore();
+const token = useCookie("token");
 
 const logout = () => {
+  sessionStorage.clear();
+  token.value = null;
+  auth.isAuth = false;
+  
   return router.push({
     name: "login",
   });

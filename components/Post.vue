@@ -61,7 +61,7 @@ const props = defineProps({
         <div class="flex justify-end space-x-3">
           <LikeShareCount />
         </div>
-        <FooterPost v-model="isShowComment" class="mt-5" />
+        <FooterPost class="mt-5" />
       </div>
     </div>
   </div>
