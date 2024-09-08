@@ -1,25 +1,49 @@
-<script setup>
+<script setup lang="ts">
+import { authStore } from "~/stores/authStore";
+
 definePageMeta({
   layout: false,
 });
 
+interface Form {
+  email: string;
+  password: string;
+}
+const auth: any = authStore();
 const router = useRouter();
-const form = reactive({
-  email: null,
-  password: null,
+const form: Form = reactive({
+  email: "",
+  password: "",
 });
-const validation = ref([]);
+const validation: any = ref([]);
 
-const send = () => {
-  console.log(form);
-  return router.push({
-    name: "dashboard",
-  });
+const login = () => {
+  $fetch("http://localhost:8000/api/login", {
+    method: "post",
+    body: {
+      email: form.email,
+      password: form.password,
+    },
+  })
+    .then((res: any) => {
+      auth.token = res.data.token;
+      sessionStorage.setItem("token", res.data.token);
+
+      return router.push({
+        name: "dashboard",
+      });
+    })
+    .catch((err: any) => {
+      console.log(err);
+      if (err.data.statusCode == 400) {
+        validation.value = err.data.errors;
+      }
+    });
 };
 </script>
 <template>
   <NuxtLayout name="login-layout">
-    <form @submit.prevent="send()">
+    <form @submit.prevent="login()">
       <div class="space-y-4">
         <div>
           <InputLabel>Email</InputLabel>
@@ -30,7 +54,7 @@ const send = () => {
             autofocus
           />
           <InputError
-            v-if="validation.username"
+            v-if="validation.email"
             :message="validation.email._errors[0]"
           />
         </div>

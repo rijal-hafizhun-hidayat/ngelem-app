@@ -12,10 +12,13 @@
   "dependencies": {
     "@nuxt/image": "^1.7.0",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/nuxt": "^0.5.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.14",
+    "encrypt-storage": "^2.13.3",
     "nuxt": "^3.12.4",
+    "nuxt-security": "^2.0.0-rc.9",
     "nuxt-swiper": "^1.2.2",
     "vue": "latest"
   },
