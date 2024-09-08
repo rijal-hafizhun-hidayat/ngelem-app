@@ -1,18 +1,52 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: false,
 });
 
-const validation = ref([]);
-const form = reactive({
-  name: null,
-  email: null,
-  username: null,
-  password: null
+interface Form {
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+}
+const auth = authStore();
+const router = useRouter();
+const validation: any = ref([]);
+const isEmailAlreadyExist: any = ref("");
+const form: Form = reactive({
+  name: "",
+  email: "",
+  username: "",
+  password: "",
 });
 
 const send = () => {
-  console.log(form);
+  $fetch("http://localhost:8000/api/register", {
+    method: "post",
+    body: {
+      name: form.name,
+      email: form.email,
+      username: form.username,
+      password: form.password,
+    },
+  })
+    .then((res: any) => {
+      auth.token = res.data.token;
+      sessionStorage.setItem("token", res.data.token);
+
+      return router.push({
+        name: "dashboard",
+      });
+    })
+    .catch((err: any) => {
+      if (err.data.statusCode == 400) {
+        validation.value = err.data.errors;
+      }
+
+      if (err.data.statusCode == 404) {
+        isEmailAlreadyExist.value = err.data.errors;
+      }
+    });
 };
 </script>
 <template>
@@ -43,6 +77,10 @@ const send = () => {
           <InputError
             v-if="validation.email"
             :message="validation.email._errors[0]"
+          />
+          <InputError
+            v-else-if="isEmailAlreadyExist"
+            :message="isEmailAlreadyExist"
           />
         </div>
         <div>
