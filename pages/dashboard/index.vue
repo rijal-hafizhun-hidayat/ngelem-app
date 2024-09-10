@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: false,
+  middleware: "auth",
 });
 
 const file = ref(null);

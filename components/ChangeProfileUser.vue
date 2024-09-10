@@ -1,12 +1,14 @@
-<script setup>
-const validation = ref([]);
-const user = reactive({
+<script setup lang="ts">
+interface User {
+  name: string;
+}
+const validation: any = ref([]);
+const user: User = reactive({
   name: "",
-  username: "",
 });
 
 const send = () => {
-  console.log(form);
+  console.log(user);
 };
 </script>
 <template>
@@ -25,18 +27,6 @@ const send = () => {
             <InputError
               v-if="validation.name"
               :message="validation.name._errors[0]"
-            />
-          </div>
-          <div>
-            <InputLabel>Username</InputLabel>
-            <TextInput
-              class="mt-1 block w-full"
-              v-model="user.username"
-              type="text"
-            />
-            <InputError
-              v-if="validation.username"
-              :message="validation.username._errors[0]"
             />
           </div>
           <div>

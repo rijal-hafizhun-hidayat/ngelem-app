@@ -26,8 +26,8 @@ const login = () => {
     },
   })
     .then((res: any) => {
-      const token = useCookie("token");
-      token.value = res.data.token;
+      sessionStorage.setItem("token", res.data.token);
+      auth.token = res.data.token;
       auth.isAuth = true;
 
       return router.push({
