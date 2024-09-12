@@ -21,7 +21,7 @@ const signup = () => {
         <div class="flex justify-between h-16">
           <div class="flex">
             <div class="flex items-center">
-              <ApplicationLogo class="block fill-current text-gray-800" />
+              <DashboardApplicationLogo class="block fill-current text-gray-800" />
             </div>
           </div>
 

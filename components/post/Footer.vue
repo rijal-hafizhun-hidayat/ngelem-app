@@ -58,6 +58,6 @@ const likePost = () => {
     </div>
   </div>
   <div class="border-t" v-if="showComment === true">
-    <Comments />
+    <PostComments />
   </div>
 </template>

@@ -28,7 +28,9 @@ const myProfile = () => {
             <div class="flex justify-between h-16">
               <div class="flex">
                 <div class="flex items-center">
-                  <ApplicationLogo class="block fill-current text-gray-800" />
+                  <DashboardApplicationLogo
+                    class="block fill-current text-gray-800"
+                  />
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                   <NuxtLink
