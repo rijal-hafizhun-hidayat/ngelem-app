@@ -1,9 +1,10 @@
 <script setup>
 useHead({
-  title: 'ngelem'
-})
+  title: "ngelem",
+});
 </script>
 <template>
+  <NuxtLoadingIndicator />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

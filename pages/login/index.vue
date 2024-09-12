@@ -26,23 +26,31 @@ const login = () => {
     },
   })
     .then((res: any) => {
+      const token = useCookie("token");
+      token.value = res.data.token;
       auth.token = res.data.token;
-      sessionStorage.setItem("token", res.data.token);
+      auth.isAuth = true;
 
       return router.push({
         name: "dashboard",
       });
     })
     .catch((err: any) => {
-      console.log(err);
       if (err.data.statusCode == 400) {
         validation.value = err.data.errors;
+      } else if (err.data.statusCode == 404) {
+        validation.value = err.data;
       }
     });
 };
 </script>
 <template>
   <NuxtLayout name="login-layout">
+    <ErrorLabel
+      v-if="validation.statusCode == 404"
+      :message="validation.errors"
+      class="mb-3"
+    />
     <form @submit.prevent="login()">
       <div class="space-y-4">
         <div>

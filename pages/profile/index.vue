@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: false,
+  middleware: "auth",
 });
 
 const router = useRouter();
@@ -24,6 +25,6 @@ const showProfile = () => {
     </template>
 
     <ProfileUser />
-    <Post :isUserPost="true"/>
+    <Post :isUserPost="true" />
   </NuxtLayout>
 </template>

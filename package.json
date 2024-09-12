@@ -16,6 +16,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.14",
+    "axios": "^1.7.7",
     "encrypt-storage": "^2.13.3",
     "nuxt": "^3.12.4",
     "nuxt-security": "^2.0.0-rc.9",
