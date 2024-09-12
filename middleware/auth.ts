@@ -1,13 +1,13 @@
 export default defineNuxtRouteMiddleware((to, form) => {
   const { isAuth } = storeToRefs(authStore());
-  const token = sessionStorage.getItem("token");
+  const token = useCookie("token");
 
-  if (token) {
+  if (token.value) {
     isAuth.value = true;
   }
 
-  if (!token) {
-    abortNavigation();
+  if (!token.value) {
+    //abortNavigation();
     return navigateTo("/login");
   }
 });

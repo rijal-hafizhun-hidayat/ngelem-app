@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ErrorLabel from "~/components/ErrorLabel.vue";
+
 definePageMeta({
   layout: false,
 });
@@ -12,7 +14,6 @@ interface Form {
 const auth = authStore();
 const router = useRouter();
 const validation: any = ref([]);
-const isEmailAlreadyExist: any = ref("");
 const form: Form = reactive({
   name: "",
   email: "",
@@ -41,16 +42,18 @@ const send = () => {
     .catch((err: any) => {
       if (err.data.statusCode == 400) {
         validation.value = err.data.errors;
-      }
-
-      if (err.data.statusCode == 404) {
-        isEmailAlreadyExist.value = err.data.errors;
+      } else if (err.data.statusCode == 404) {
+        validation.value = err.data;
       }
     });
 };
 </script>
 <template>
   <NuxtLayout name="login-layout">
+    <ErrorLabel
+      v-if="validation.statusCode == 404"
+      :message="validation.errors"
+    />
     <form @submit.prevent="send()">
       <div class="space-y-4">
         <div>
@@ -77,10 +80,6 @@ const send = () => {
           <InputError
             v-if="validation.email"
             :message="validation.email._errors[0]"
-          />
-          <InputError
-            v-else-if="isEmailAlreadyExist"
-            :message="isEmailAlreadyExist"
           />
         </div>
         <div>

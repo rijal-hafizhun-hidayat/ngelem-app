@@ -1,7 +1,15 @@
-<script setup>
-const validation = ref([]);
-const user = reactive({
-  oldEmail: "",
+<script setup lang="ts">
+interface Form {
+  oldEmail: string;
+  newEmail: string;
+  codeOtp: number | string;
+}
+const props = defineProps<{
+  email: string;
+}>();
+const validation: any = ref([]);
+const form: Form = reactive({
+  oldEmail: props.email,
   newEmail: "",
   codeOtp: "",
 });
@@ -26,7 +34,7 @@ const send = () => {
             <InputLabel>Email lama</InputLabel>
             <TextInput
               class="mt-1 block w-full"
-              v-model="user.oldEmail"
+              v-model="form.oldEmail"
               type="email"
               disabled
             />
@@ -40,7 +48,7 @@ const send = () => {
               <InputLabel>Email baru</InputLabel>
               <TextInput
                 class="mt-1 block w-full"
-                v-model="user.newEmail"
+                v-model="form.newEmail"
                 type="email"
               />
               <InputError
@@ -58,7 +66,7 @@ const send = () => {
             <InputLabel>Kode OTP</InputLabel>
             <TextInput
               class="mt-1 block w-full"
-              v-model="user.codeOtp"
+              v-model="form.codeOtp"
               type="number"
             />
           </div>

@@ -11,22 +11,25 @@ const profile: Profile = reactive({
   name: "",
   email: "",
 });
+const token = useCookie("token");
 
-onMounted(() => {
-  $fetch("http://localhost:8000/api/profile", {
+const { data: response, error } = await useFetch(
+  "http://localhost:8000/api/profile",
+  {
     method: "get",
     headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${token.value}`,
     },
-  })
-    .then((res: any) => {
-      profile.name = res.data.name;
-      profile.email = res.data.email;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+  }
+);
+
+if (response.value) {
+  const data: any = response.value;
+  profile.email = data.data.email;
+  profile.name = data.data.name;
+} else if (error.value != null) {
+  console.log(error.value);
+}
 </script>
 <template>
   <NuxtLayout name="auth-layout">
@@ -40,9 +43,9 @@ onMounted(() => {
       </div>
     </template>
 
-    <ChangeProfileUser />
+    <ChangeProfileUser :name="profile.name" />
     <ChangePasswordUser />
-    <ChangeEmailUser />
+    <ChangeEmailUser :email="profile.email" />
     <ChangePhotoProfile />
   </NuxtLayout>
 </template>
