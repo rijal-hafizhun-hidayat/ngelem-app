@@ -59,9 +59,9 @@ const props = defineProps({
           </p>
         </div>
         <div class="flex justify-end space-x-3">
-          <LikeShareCount />
+          <PostLikeShareCount />
         </div>
-        <FooterPost class="mt-5" />
+        <PostFooter class="mt-5" />
       </div>
     </div>
   </div>

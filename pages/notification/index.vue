@@ -15,6 +15,6 @@ definePageMeta({
       </div>
     </template>
 
-    <Notification />
+    <NotificationBase />
   </NuxtLayout>
 </template>

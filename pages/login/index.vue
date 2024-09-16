@@ -83,14 +83,29 @@ const login = () => {
       </div>
 
       <div class="flex items-center justify-between mt-4">
-        <p class="text-sm">
-          Belum memiliki akun? klik
-          <NuxtLink
-            class="text-blue-500 underline cursor-pointer"
-            to="/register"
-            >register</NuxtLink
-          >
-        </p>
+        <div class="flex flex-col space-y-4">
+          <div>
+            <p class="text-sm">
+              Belum memiliki akun? klik
+              <NuxtLink
+                class="text-blue-500 underline cursor-pointer"
+                to="/register"
+                >register</NuxtLink
+              >
+            </p>
+          </div>
+          <div>
+            <p class="text-sm">
+              Lupa password? klik
+              <NuxtLink
+                class="text-blue-500 underline cursor-pointer"
+                to="/reset"
+                >reset password</NuxtLink
+              >
+            </p>
+          </div>
+        </div>
+
         <PrimaryButton type="submit">Masuk</PrimaryButton>
       </div>
     </form>

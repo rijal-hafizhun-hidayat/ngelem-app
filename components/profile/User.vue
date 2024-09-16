@@ -1,5 +1,39 @@
-<script setup>
+<script setup lang="ts">
+interface Response {
+  message: string;
+  statusCode: number;
+  data: any;
+}
+
+interface User {
+  name: string;
+  avatar: string;
+}
+
 const router = useRouter();
+
+const token: any = useCookie("token");
+const user: User = reactive({
+  name: "",
+  avatar: "",
+});
+
+const { data: response, error: err } = await useFetch(
+  "http://localhost:8000/api/profile",
+  {
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${token.value}`,
+    },
+  }
+);
+
+if (response.value) {
+  const data: Response = response.value as Response;
+  user.name = data.data.name;
+  user.avatar = data.data.avatar;
+}
+console.log(err);
 
 const showProfile = () => {
   return router.push({
@@ -21,7 +55,7 @@ const showProfile = () => {
         </div>
         <div class="my-auto text-center sm:text-left">
           <div class="space-y-4">
-            <p class="font-bold text-2xl capitalize">rijal hafizhun hidayat</p>
+            <p class="font-bold text-2xl capitalize">{{ user.name }}</p>
             <PrimaryButton @click="showProfile()" class="mr-auto"
               >edit profile</PrimaryButton
             >

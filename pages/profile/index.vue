@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: false,
   middleware: "auth",
@@ -25,6 +25,6 @@ const showProfile = () => {
     </template>
 
     <ProfileUser />
-    <Post :isUserPost="true" />
+    <DashboardPost :isUserPost="true" />
   </NuxtLayout>
 </template>

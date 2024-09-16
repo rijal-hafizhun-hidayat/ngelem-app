@@ -43,9 +43,9 @@ if (response.value) {
       </div>
     </template>
 
-    <ChangeProfileUser :name="profile.name" />
-    <ChangePasswordUser />
-    <ChangeEmailUser :email="profile.email" />
-    <ChangePhotoProfile />
+    <ProfileChangeProfileUser :name="profile.name" />
+    <ProfileChangePasswordUser />
+    <ProfileChangeEmailUser :email="profile.email" />
+    <ProfileChangePhotoProfile />
   </NuxtLayout>
 </template>

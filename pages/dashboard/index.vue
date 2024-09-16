@@ -143,6 +143,6 @@ const send = () => {
       </form>
     </Modal>
 
-    <Post />
+    <DashboardPost />
   </NuxtLayout>
 </template>
