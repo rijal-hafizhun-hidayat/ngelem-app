@@ -8,8 +8,7 @@ const props = defineProps<{
   email: string;
 }>();
 const token: any = useCookie("token");
-const success: any = ref([]);
-const validation: any = ref([]);
+const response: any = ref([]);
 const form: Form = reactive({
   oldEmail: props.email,
   newEmail: "",
@@ -28,10 +27,11 @@ const send = () => {
     },
   })
     .then((res: any) => {
+      response.value = res;
       form.oldEmail = res.data.email;
     })
     .catch((err: any) => {
-      validation.value = err.data;
+      response.value = err.data;
       console.log(err.data);
     });
 };
@@ -47,11 +47,10 @@ const sendOtp = () => {
     },
   })
     .then((res: any) => {
-      console.log(res);
-      success.value = res;
+      response.value = res;
     })
     .catch((err: any) => {
-      validation.value = err.data;
+      response.value = err.data;
     });
 };
 </script>
@@ -67,12 +66,13 @@ const sendOtp = () => {
       </div>
       <ErrorLabel
         class="mb-2"
-        v-if="validation.statusCode == 401 || validation.statusCode == 404"
-        :message="validation.errors"
+        v-if="response.statusCode == 401 || response.statusCode == 404"
+        :message="response.errors"
       />
       <SuccessLabel
-        v-if="success.statusCode == 200"
-        :message="success.message"
+        class="mb-2"
+        v-if="response.statusCode == 200"
+        :message="response.message"
       />
       <div class="whitespace-nowrap">
         <form @submit.prevent="send()" class="space-y-4">
@@ -85,8 +85,8 @@ const sendOtp = () => {
               disabled
             />
             <InputError
-              v-if="validation.oldEmail"
-              :message="validation.oldEmail._errors[0]"
+              v-if="response.oldEmail"
+              :message="response.oldEmail._errors[0]"
             />
           </div>
           <div class="flex justify-start space-x-4">
@@ -98,8 +98,8 @@ const sendOtp = () => {
                 type="email"
               />
               <InputError
-                v-if="validation.newEmail"
-                :message="validation.newEmail._errors[0]"
+                v-if="response.newEmail"
+                :message="response.newEmail._errors[0]"
               />
             </div>
             <div>

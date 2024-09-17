@@ -8,7 +8,6 @@ interface Form {
 }
 
 const router = useRouter();
-const resetPassword = resetPasswordStore();
 const validation: any = ref([]);
 const form: Form = reactive({
   email: "",
@@ -22,7 +21,6 @@ const send = () => {
     },
   })
     .then((res: any) => {
-      resetPassword.isResetPassword = true;
       return router.push({
         name: "reset-confirmation",
         query: {
