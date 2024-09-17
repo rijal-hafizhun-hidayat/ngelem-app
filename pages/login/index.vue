@@ -9,6 +9,7 @@ interface Form {
   email: string;
   password: string;
 }
+const resetPassword = resetPasswordStore();
 const auth: any = authStore();
 const router = useRouter();
 const form: Form = reactive({
@@ -50,6 +51,10 @@ const login = () => {
       v-if="validation.statusCode == 404"
       :message="validation.errors"
       class="mb-3"
+    />
+    <SuccessLabel
+      v-if="resetPassword.isResetPassword == true"
+      :message="resetPassword.message"
     />
     <form @submit.prevent="login()">
       <div class="space-y-4">

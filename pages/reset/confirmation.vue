@@ -9,6 +9,8 @@ interface Form {
 }
 
 const route = useRoute();
+const router: any = useRouter();
+const resetPassword: any = resetPasswordStore();
 const validation: any = ref([]);
 const form: Form = reactive({
   otp: "",
@@ -16,24 +18,44 @@ const form: Form = reactive({
 });
 
 const send = async () => {
-  const { data: resetPassword, error } = await useFetch(
-    "http://localhost:8000/api/reset-password/update",
-    {
-      method: "patch",
-      body: {
-        token: route.query.token,
-        otp: parseInt(form.otp),
-        password: form.password,
-      },
-    }
-  );
+  // const { data: resetPassword, error } = await useFetch(
+  //   "http://localhost:8000/api/reset-password/update",
+  //   {
+  //     method: "patch",
+  //     body: {
+  //       token: route.query.token,
+  //       otp: parseInt(form.otp),
+  //       password: form.password,
+  //     },
+  //   }
+  // );
 
-  console.log(resetPassword);
-  console.log(error);
-  if (error.value) {
-    const errors = error.value;
-    validation.value = errors.data;
-  }
+  // if (error.value) {
+  //   const errors = error.value;
+  //   validation.value = errors.data;
+  // }
+
+  // if (resetPassword.value) {
+  //   resetPassword.isResetPassword = true;
+  // }
+  $fetch("http://localhost:8000/api/reset-password/update", {
+    method: "patch",
+    body: {
+      token: route.query.token,
+      otp: parseInt(form.otp),
+      password: form.password,
+    },
+  })
+    .then((res: any) => {
+      resetPassword.isResetPassword = true;
+      resetPassword.message = "reset password berhasil";
+      return router.push({
+        name: "login",
+      });
+    })
+    .catch((err: any) => {
+      console.log(err.data);
+    });
 };
 </script>
 <template>
