@@ -7,6 +7,8 @@ interface Form {
 const props = defineProps<{
   email: string;
 }>();
+const token: any = useCookie("token");
+const success: any = ref([]);
 const validation: any = ref([]);
 const form: Form = reactive({
   oldEmail: props.email,
@@ -15,7 +17,42 @@ const form: Form = reactive({
 });
 
 const send = () => {
-  console.log(form);
+  $fetch("http://localhost:8000/api/profile/update-email", {
+    method: "patch",
+    body: {
+      newEmail: form.newEmail,
+      otp: parseInt(form.codeOtp as string),
+    },
+    headers: {
+      Authorization: `Bearer ${token.value}`,
+    },
+  })
+    .then((res: any) => {
+      form.oldEmail = res.data.email;
+    })
+    .catch((err: any) => {
+      validation.value = err.data;
+      console.log(err.data);
+    });
+};
+
+const sendOtp = () => {
+  $fetch("http://localhost:8000/api/profile/send-otp-email", {
+    method: "post",
+    body: {
+      email: form.oldEmail,
+    },
+    headers: {
+      Authorization: `Bearer ${token.value}`,
+    },
+  })
+    .then((res: any) => {
+      console.log(res);
+      success.value = res;
+    })
+    .catch((err: any) => {
+      validation.value = err.data;
+    });
 };
 </script>
 <template>
@@ -28,6 +65,15 @@ const send = () => {
           email yang lama akan digunakan untuk mengirim kode otp
         </p>
       </div>
+      <ErrorLabel
+        class="mb-2"
+        v-if="validation.statusCode == 401 || validation.statusCode == 404"
+        :message="validation.errors"
+      />
+      <SuccessLabel
+        v-if="success.statusCode == 200"
+        :message="success.message"
+      />
       <div class="whitespace-nowrap">
         <form @submit.prevent="send()" class="space-y-4">
           <div>
@@ -57,7 +103,7 @@ const send = () => {
               />
             </div>
             <div>
-              <PrimaryButton type="button" class="mt-7"
+              <PrimaryButton type="button" @click="sendOtp()" class="mt-7"
                 >Kirim OTP</PrimaryButton
               >
             </div>
