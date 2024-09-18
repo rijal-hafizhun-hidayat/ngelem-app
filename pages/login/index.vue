@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { authStore } from "~/stores/authStore";
-
 definePageMeta({
   layout: false,
 });
@@ -9,47 +7,44 @@ interface Form {
   email: string;
   password: string;
 }
-const resetPassword = resetPasswordStore();
+const resetPassword: any = resetPasswordStore();
 const auth: any = authStore();
 const router = useRouter();
 const form: Form = reactive({
   email: "",
   password: "",
 });
-const validation: any = ref([]);
+const response: any = ref([]);
 
-const login = () => {
-  $fetch("http://localhost:8000/api/login", {
-    method: "post",
-    body: {
-      email: form.email,
-      password: form.password,
-    },
-  })
-    .then((res: any) => {
-      const token = useCookie("token");
-      token.value = res.data.token;
-      auth.token = res.data.token;
-      auth.isAuth = true;
-
-      return router.push({
-        name: "dashboard",
-      });
-    })
-    .catch((err: any) => {
-      if (err.data.statusCode == 400) {
-        validation.value = err.data.errors;
-      } else if (err.data.statusCode == 404) {
-        validation.value = err.data;
-      }
+const login = async () => {
+  try {
+    const res: any = await useCostumeFetch("login", {
+      method: "post",
+      body: {
+        email: form.email,
+        password: form.password,
+      },
     });
+
+    const token = useCookie("token");
+    token.value = res.data.token;
+    auth.token = res.data.token;
+    auth.isAuth = true;
+
+    router.push({
+      name: "dashboard",
+    });
+  } catch (error: any) {
+    console.log(error.data);
+    response.value = error.data;
+  }
 };
 </script>
 <template>
   <NuxtLayout name="login-layout">
     <ErrorLabel
-      v-if="validation.statusCode == 404"
-      :message="validation.errors"
+      v-if="response.statusCode == 404"
+      :message="response.errors"
       class="mb-3"
     />
     <SuccessLabel
@@ -67,8 +62,8 @@ const login = () => {
             autofocus
           />
           <InputError
-            v-if="validation.email"
-            :message="validation.email._errors[0]"
+            v-if="response.errors?.email"
+            :message="response.errors?.email?._errors[0]"
           />
         </div>
 
@@ -81,8 +76,8 @@ const login = () => {
             autofocus
           />
           <InputError
-            v-if="validation.password"
-            :message="validation.password._errors[0]"
+            v-if="response.errors?.password"
+            :message="response.errors?.password?._errors[0]"
           />
         </div>
       </div>
