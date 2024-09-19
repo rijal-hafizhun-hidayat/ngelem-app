@@ -15,43 +15,44 @@ const form: Form = reactive({
   codeOtp: "",
 });
 
-const send = () => {
-  $fetch("http://localhost:8000/api/profile/update-email", {
-    method: "patch",
-    body: {
-      newEmail: form.newEmail,
-      otp: parseInt(form.codeOtp as string),
-    },
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-  })
-    .then((res: any) => {
-      response.value = res;
-      form.oldEmail = res.data.email;
-    })
-    .catch((err: any) => {
-      response.value = err.data;
-      console.log(err.data);
+const send = async () => {
+  try {
+    const updateEmail = await useCostumeFetch("profile/update-email", {
+      method: "patch",
+      body: {
+        newEmail: form.newEmail,
+        otp: parseInt(form.codeOtp as string),
+      },
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
     });
+    response.value = updateEmail;
+    form.oldEmail = updateEmail.data.email;
+  } catch (error: any) {
+    console.log(error.data);
+    response.value = error.data;
+  }
 };
 
-const sendOtp = () => {
-  $fetch("http://localhost:8000/api/profile/send-otp-email", {
-    method: "post",
-    body: {
-      email: form.oldEmail,
-    },
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-  })
-    .then((res: any) => {
-      response.value = res;
-    })
-    .catch((err: any) => {
-      response.value = err.data;
+const sendOtp = async () => {
+  try {
+    const sendOtpEmail = await useCostumeFetch("profile/send-otp-email", {
+      method: "post",
+      body: {
+        email: form.oldEmail,
+      },
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
     });
+
+    console.log(sendOtpEmail);
+    response.value = sendOtpEmail;
+  } catch (error: any) {
+    console.log(error.data);
+    response.value = error.data;
+  }
 };
 </script>
 <template>

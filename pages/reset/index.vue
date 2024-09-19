@@ -13,25 +13,24 @@ const form: Form = reactive({
   email: "",
 });
 
-const send = () => {
-  $fetch("http://localhost:8000/api/reset-password", {
-    method: "post",
-    body: {
-      email: form.email,
-    },
-  })
-    .then((res: any) => {
-      return router.push({
-        name: "reset-confirmation",
-        query: {
-          token: res.data.token,
-        },
-      });
-    })
-    .catch((err: any) => {
-      console.log(err.data);
-      validation.value = err.data;
+const send = async () => {
+  try {
+    const res = await useCostumeFetch("reset-password", {
+      method: "post",
+      body: {
+        email: form.email,
+      },
     });
+
+    router.push({
+      name: "reset-confirmation",
+      query: {
+        token: res.data.token,
+      },
+    });
+  } catch (error: any) {
+    validation.value = error.data;
+  }
 };
 </script>
 <template>

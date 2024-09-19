@@ -13,23 +13,19 @@ const form: Form = reactive({
 
 const send = async () => {
   try {
-    const profile: any = await $fetch(
-      "http://localhost:8000/api/profile/name",
-      {
-        method: "patch",
-        body: {
-          name: form.name,
-        },
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-        },
-      }
-    );
+    const profile = await useCostumeFetch("profile/name", {
+      method: "patch",
+      body: {
+        name: form.name,
+      },
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    });
+
     response.value = profile;
   } catch (error: any) {
-    if ((error.data.statusCode = 400)) {
-      response.value = error.data.errors;
-    }
+    response.value = error.data;
   }
 };
 </script>
@@ -52,8 +48,8 @@ const send = async () => {
               type="text"
             />
             <InputError
-              v-if="response.name"
-              :message="response.name._errors[0]"
+              v-if="response.errors?.name"
+              :message="response.errors?.name?._errors[0]"
             />
           </div>
           <div>
