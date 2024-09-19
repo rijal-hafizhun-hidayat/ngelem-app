@@ -1,39 +1,24 @@
 <script setup lang="ts">
-interface Response {
-  message: string;
-  statusCode: number;
-  data: any;
-}
-
 interface User {
   name: string;
   avatar: string;
 }
 
 const router = useRouter();
-
-const token: any = useCookie("token");
 const user: User = reactive({
   name: "",
   avatar: "",
 });
 
-const { data: response, error: err } = await useFetch(
-  "http://localhost:8000/api/profile",
-  {
-    method: "get",
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-  }
-);
+const { data: response, error } = await useCustomUseFetch<[]>("profile");
 
+console.log(response);
 if (response.value) {
-  const data: Response = response.value as Response;
+  const data: any = response.value;
   user.name = data.data.name;
   user.avatar = data.data.avatar;
 }
-console.log(err);
+console.log(error);
 
 const showProfile = () => {
   return router.push({

@@ -12,27 +12,20 @@ const password: Password = reactive({
 
 const send = async () => {
   try {
-    const patchPassword: any = await $fetch(
-      "http://localhost:8000/api/profile/password",
-      {
-        method: "patch",
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-        },
-        body: {
-          newPassword: password.newPassword,
-          confirmationPassword: password.confirmationPassword,
-        },
-      }
-    );
+    const response: any = await useCostumeFetch("profile/password", {
+      method: "patch",
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+      body: {
+        newPassword: password.newPassword,
+        confirmationPassword: password.confirmationPassword,
+      },
+    });
 
-    response.value = patchPassword;
+    response.value = response;
   } catch (error: any) {
-    if (error.data.statusCode == 400) {
-      response.value = error.data.errors;
-    } else if (error.data.statusCode == 404) {
-      response.value = error.data;
-    }
+    response.value = error.data;
   }
 };
 </script>
@@ -61,8 +54,8 @@ const send = async () => {
               type="password"
             />
             <InputError
-              v-if="response.newPassword"
-              :message="response.newPassword._errors[0]"
+              v-if="response.errors?.newPassword"
+              :message="response.errors?.newPassword?._errors[0]"
             />
           </div>
           <div>
@@ -78,8 +71,8 @@ const send = async () => {
               type="password"
             />
             <InputError
-              v-if="response.confirmationPassword"
-              :message="response.confirmationPassword._errors[0]"
+              v-if="response.errors?.confirmationPassword"
+              :message="response.errors?.confirmationPassword?._errors[0]"
             />
           </div>
           <div>

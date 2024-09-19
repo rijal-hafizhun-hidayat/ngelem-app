@@ -11,20 +11,10 @@ const profile: Profile = reactive({
   name: "",
   email: "",
 });
-const token = useCookie("token");
+const { data: res, error } = await useCustomUseFetch<[]>("profile");
 
-const { data: response, error } = await useFetch(
-  "http://localhost:8000/api/profile",
-  {
-    method: "get",
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-  }
-);
-
-if (response.value) {
-  const data: any = response.value;
+if (res.value) {
+  const data: any = res.value;
   profile.email = data.data.email;
   profile.name = data.data.name;
 } else if (error.value != null) {

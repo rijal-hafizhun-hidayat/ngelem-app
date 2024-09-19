@@ -8,44 +8,40 @@ definePageMeta({
 interface Form {
   name: string;
   email: string;
-  username: string;
   password: string;
 }
+
 const auth = authStore();
 const router = useRouter();
 const validation: any = ref([]);
 const form: Form = reactive({
   name: "",
   email: "",
-  username: "",
   password: "",
 });
 
-const send = () => {
-  $fetch("http://localhost:8000/api/register", {
-    method: "post",
-    body: {
-      name: form.name,
-      email: form.email,
-      username: form.username,
-      password: form.password,
-    },
-  })
-    .then((res: any) => {
-      auth.token = res.data.token;
-      sessionStorage.setItem("token", res.data.token);
-
-      return router.push({
-        name: "dashboard",
-      });
-    })
-    .catch((err: any) => {
-      if (err.data.statusCode == 400) {
-        validation.value = err.data.errors;
-      } else if (err.data.statusCode == 404) {
-        validation.value = err.data;
-      }
+const send = async () => {
+  try {
+    const res = await useCostumeFetch("register", {
+      method: "post",
+      body: {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      },
     });
+
+    const token: any = useCookie("token");
+    token.value = res.data.token;
+    auth.token = res.data.token;
+    auth.isAuth = true;
+
+    router.push({
+      name: "dashboard",
+    });
+  } catch (error: any) {
+    validation.value = error.data;
+  }
 };
 </script>
 <template>
@@ -65,8 +61,8 @@ const send = () => {
             autofocus
           />
           <InputError
-            v-if="validation.name"
-            :message="validation.name._errors[0]"
+            v-if="validation.errors?.name"
+            :message="validation.errors?.name?._errors[0]"
           />
         </div>
         <div>
@@ -78,21 +74,8 @@ const send = () => {
             autofocus
           />
           <InputError
-            v-if="validation.email"
-            :message="validation.email._errors[0]"
-          />
-        </div>
-        <div>
-          <InputLabel>Username</InputLabel>
-          <TextInput
-            class="mt-1 block w-full"
-            type="text"
-            v-model="form.username"
-            autofocus
-          />
-          <InputError
-            v-if="validation.username"
-            :message="validation.username._errors[0]"
+            v-if="validation.errors?.email"
+            :message="validation.errors?.email?._errors[0]"
           />
         </div>
         <div>
@@ -104,8 +87,8 @@ const send = () => {
             autofocus
           />
           <InputError
-            v-if="validation.password"
-            :message="validation.password._errors[0]"
+            v-if="validation.errors?.password"
+            :message="validation.errors?.password?._errors[0]"
           />
         </div>
       </div>
