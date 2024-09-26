@@ -4,6 +4,7 @@ interface User {
   avatar: string;
 }
 
+const imageUrl: Ref<string> = ref("");
 const router = useRouter();
 const user: User = reactive({
   name: "",
@@ -17,8 +18,9 @@ if (response.value) {
   const data: any = response.value;
   user.name = data.data.name;
   user.avatar = data.data.avatar;
+} else if (error.value) {
+  console.log(error.value);
 }
-console.log(error);
 
 const showProfile = () => {
   return router.push({
@@ -31,12 +33,7 @@ const showProfile = () => {
     <div class="bg-white mt-10 px-4 py-6 rounded shadow-md overflow-x-auto">
       <div class="grid grid-rows-1 sm:grid-cols-2 gap-4">
         <div>
-          <NuxtImg
-            class="w-7/12 sm:w-5/12 mx-auto rounded-full"
-            src="/images/falling-into-darkness.png"
-            alt=""
-            srcset=""
-          />
+          <NuxtImg :src="user.avatar" sizes="100vw sm:50vw md:400px" />
         </div>
         <div class="my-auto text-center sm:text-left">
           <div class="space-y-4">
