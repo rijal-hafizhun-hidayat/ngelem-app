@@ -7,6 +7,7 @@ interface Profile {
   name: string;
   email: string;
 }
+const imageUrl: Ref<string> = ref("");
 const profile: Profile = reactive({
   name: "",
   email: "",
@@ -17,6 +18,7 @@ if (res.value) {
   const data: any = res.value;
   profile.email = data.data.email;
   profile.name = data.data.name;
+  imageUrl.value = data.data.avatar;
 } else if (error.value != null) {
   console.log(error.value);
 }
