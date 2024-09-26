@@ -26,6 +26,7 @@ const send = async () => {
     });
 
     validation.value = response;
+    file.value = null;
   } catch (error) {
     console.log(error);
   }
